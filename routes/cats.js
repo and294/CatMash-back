@@ -3,7 +3,7 @@ const Cat = require('../models/cats');
 var router = express.Router();
 
 //Récupérer la liste de tous les chats
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   Cat.find().then((data) => {
     res.json({ cats: data });
   });
