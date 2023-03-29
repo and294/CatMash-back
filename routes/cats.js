@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 });
 
 //Route pour voter pour un chat
-router.get('/updateVote', (req, res) => {
+router.post('/updateVote', (req, res) => {
   Cat.findOneAndUpdate(
     { id: req.body.id },
     { $inc: { vote: 1 } },
