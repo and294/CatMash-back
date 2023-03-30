@@ -8,6 +8,9 @@ router.get('/', (req, res) => {
   Cat.find().then((data) => {
     res.json({ cats: data });
   });
+});
+
+router.get('/votes', (req, res) => {
   Vote.find().then((data) => {
     res.json({ votes: data });
   });
@@ -21,6 +24,11 @@ router.post('/updateVote', (req, res) => {
     { $inc: { vote: 1 } },
     { new: true }
   )
+  Vote.findOneAndUpdate(
+    {_id: '64243ffe6555fa488a4b89b0'},
+    { $inc: { vote: 1 } },
+    { new: true }
+  )
     .then(data => {
       res.json({ cats: data });
     })
@@ -28,20 +36,6 @@ router.post('/updateVote', (req, res) => {
       console.error(err);
       res.status(500).send(err);
     });
-
-    Vote.findOneAndUpdate(
-      {_id: '64243ffe6555fa488a4b89b0'},
-      { $inc: { vote: 1 } },
-      { new: true }
-    )
-      .then(data => {
-        res.json({ vote: data });
-        console.log(data)
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).send(err);
-      });
 });
 
 
