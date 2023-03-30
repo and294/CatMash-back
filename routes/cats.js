@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
   });
 });
 
+//Récupérer le nombre total de votes
 router.get('/votes', (req, res) => {
   Vote.find().then((data) => {
     res.json({ votes: data });
@@ -24,11 +25,6 @@ router.post('/updateVote', (req, res) => {
     { $inc: { vote: 1 } },
     { new: true }
   )
-  Vote.findOneAndUpdate(
-    {_id: '64243ffe6555fa488a4b89b0'},
-    { $inc: { vote: 1 } },
-    { new: true }
-  )
     .then(data => {
       res.json({ cats: data });
     })
@@ -37,6 +33,23 @@ router.post('/updateVote', (req, res) => {
       res.status(500).send(err);
     });
 });
+
+//Route pour incrémenter le nombre total de vote
+router.post('/updateTotalVoteCount', (req, res) => {
+  Vote.findOneAndUpdate(
+  {_id: '64243ffe6555fa488a4b89b0'},
+  { $inc: { vote: 1 } },
+  { new: true }
+)
+  .then(data => {
+    res.json({ votes: data });
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).send(err);
+  });
+});
+
 
 
 
